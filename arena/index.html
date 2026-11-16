@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เสาหลักที่ 1: ฝึก Logic & แกะลูป - Dek Morton Studio</title>
+  <style>
+    :root {
+      --bg-main: #0f111a;
+      --bg-card: #1a1d2d;
+      --bg-code: #090a10;
+      --accent-green: #4de7a8;
+      --accent-cyan: #38bdf8;
+      --accent-yellow: #fbbf24;
+      --accent-pink: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #2e344e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px 60px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(77, 231, 168, 0.15);
+      color: var(--accent-green);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(77, 231, 168, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      color: var(--accent-green);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Concept Cheatsheet Box */
+    .concept-box {
+      background: linear-gradient(135deg, #181c2e 0%, #1e243b 100%);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 35px;
+    }
+
+    .concept-box h3 {
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .operator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 12px;
+    }
+
+    .op-item {
+      background: rgba(9, 10, 16, 0.6);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .op-code {
+      font-family: 'Consolas', monospace;
+      color: var(--accent-yellow);
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    /* Challenge Card */
+    .challenge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .challenge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .challenge-title {
+      font-size: 1.3rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .difficulty {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .diff-easy { background: rgba(77, 231, 168, 0.15); color: var(--accent-green); }
+    .diff-med  { background: rgba(251, 191, 36, 0.15); color: var(--accent-yellow); }
+    .diff-hard { background: rgba(244, 63, 94, 0.15); color: var(--accent-pink); }
+
+    /* Code Comparison (Python vs C++) */
+    .code-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .code-split { grid-template-columns: 1fr; }
+    }
+
+    .code-box {
+      background: var(--bg-code);
+      border-radius: 10px;
+      border: 1px solid #23273e;
+      overflow: hidden;
+    }
+
+    .code-label {
+      background: #121420;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e2235;
+    }
+
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .kw { color: #38bdf8; }
+    .num { color: #fbbf24; }
+    .cmt { color: #64748b; font-style: italic; }
+    .fn { color: #4de7a8; }
+
+    /* Interactive Answer & Trace Section */
+    .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .reveal-btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .reveal-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    .trace-panel {
+      display: none;
+      margin-top: 18px;
+      background: #121524;
+      border: 1px dashed var(--accent-green);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .trace-panel.open {
+      display: block;
+    }
+
+    .ans-highlight {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--accent-green);
+      margin-bottom: 10px;
+    }
+
+    table.trace-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    table.trace-table th, table.trace-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    table.trace-table th {
+      background: #1e2238;
+      color: var(--accent-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <a href="../index.html" class="back-btn">⬅ กลับหน้าหลัก C++ Hub</a>
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Dek Morton Studio • เสาหลักที่ 1</span>
+    </div>
+
+    <header>
+      <span class="badge">PILLAR 1: CODE TRACE & LOGIC</span>
+      <h1>⚔️ ฝึกอ่านโค้ดและแกะรอยลูป (แนวข้อสอบ สอวน.)</h1>
+      <p>เทียบโค้ด Python ในห้องสอบ กับ C++ ตัวจริง พร้อมฝึกไล่ค่าตัวแปรทีละรอบ</p>
+    </header>
+
+    <!-- Cheatsheet: เครื่องหมายที่เจอบ่อยในข้อสอบ -->
+    <div class="concept-box">
+      <h3>🔑 กุญแจสำคัญ: เทียบสัญลักษณ์หารในข้อสอบ (Python vs C++)</h3>
+      <p style="font-size: 0.92rem; color: #cbd5e1;">ข้อสอบ สอวน. พาร์ทวิทยาการคำนวณชอบใช้ 2 เครื่องหมายนี้หลอกบ่อยมาก ต้องแยกให้ออกครับ:</p>
+      <div class="operator-grid">
+        <div class="op-item">
+          <div class="op-code">% (Modulo - หารเอาเศษ)</div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+            ใช้ได้เหมือนกันทั้ง Python และ C++<br>
+            ตัวอย่าง: <code style="color:#fff;">14 % 3 = 2</code> (14 หาร 3 ได้ 4 เศษ 2)
+          </p>
+        </div>
+        <div class="op-item">
+          <div class="op-code">// vs / (หารปัดเศษทิ้ง)</div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+            ใน Python ใช้ <code style="color:#fff;">14 // 3 = 4</code><br>
+            ใน C++ ใช้ <code style="color:#fff;">14 / 3 = 4</code> (ถ้าตัวแปรเป็น int)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 1: While Loop พื้นฐาน (แนวข้อสอบข้อ 26 / 30)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 1: แกะรอยลูปเพิ่มค่าทวีคูณ</span>
+        <span class="difficulty diff-easy">ระดับ: อุ่นเครื่อง</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">จงหาว่าเมื่อโปรแกรมทำงานจบ จะพิมพ์ค่าตัวแปร <strong>x</strong> ออกมาเป็นเลขอะไร?</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>x = <span class="num">0</span>
+y = <span class="num">1</span>
+<span class="kw">while</span> y <= <span class="num">100</span>:
+    y = y * <span class="num">2</span>
+    x = x + <span class="num">1</span>
+<span class="fn">print</span>(x)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> x = <span class="num">0</span>, y = <span class="num">1</span>;
+<span class="kw">while</span> (y <= <span class="num">100</span>) {
+    y = y * <span class="num">2</span>;
+    x = x + <span class="num">1</span>;
+}
+cout << x;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleTrace('trace1', this)">🔍 ดูตารางแกะรอยตัวแปร & เฉลย</button>
+      </div>
+
+      <div id="trace1" class="trace-panel">
+        <div class="ans-highlight">✅ คำตอบที่ถูกต้องคือ: 7</div>
+        <p style="font-size: 0.9rem; color: #cbd5e1;"><strong>จุดหลอก:</strong> หลายคนมักหยุดแค่ตอน <code>y = 64</code> แต่ 64 ยังไม่เกิน 100 ลูปจึงทำงานต่ออีก 1 รอบครับ</p>
+        <table class="trace-table">
+          <tr><th>รอบที่</th><th>เช็กเงื่อนไข (y <= 100)</th><th>ค่า y ใหม่ (y * 2)</th><th>ค่า x ใหม่ (x + 1)</th></tr>
+          <tr><td>เริ่มต้น</td><td>-</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>1 <= 100 (จริง)</td><td>2</td><td>1</td></tr>
+          <tr><td>2</td><td>2 <= 100 (จริง)</td><td>4</td><td>2</td></tr>
+          <tr><td>3</td><td>4 <= 100 (จริง)</td><td>8</td><td>3</td></tr>
+          <tr><td>4</td><td>8 <= 100 (จริง)</td><td>16</td><td>4</td></tr>
+          <tr><td>5</td><td>16 <= 100 (จริง)</td><td>32</td><td>5</td></tr>
+          <tr><td>6</td><td>32 <= 100 (จริง)</td><td>64</td><td>6</td></tr>
+          <tr><td>7</td><td>64 <= 100 (จริง)</td><td><strong>128</strong></td><td><strong>7</strong></td></tr>
+          <tr><td>8</td><td>128 <= 100 (เท็จ -> หยุด!)</td><td>-</td><td>พิมพ์ 7</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 2: การตัดหลักตัวเลขด้วย % และ // (แนวข้อสอบข้อ 34)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 2: แปลงเลขฐานสองนับเลข 1</span>
+        <span class="difficulty diff-med">ระดับ: ข้อสอบจริง</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">หากกำหนดให้เริ่มต้น <strong>n = 13</strong> เมื่อจบโปรแกรม ค่าของ <strong>count</strong> จะเป็นเท่าใด?</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>n = <span class="num">13</span>
+count = <span class="num">0</span>
+<span class="kw">while</span> n > <span class="num">0</span>:
+    count = count + (n % <span class="num">2</span>)
+    n = n // <span class="num">2</span>
+<span class="fn">print</span>(count)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> n = <span class="num">13</span>, count = <span class="num">0</span>;
+<span class="kw">while</span> (n > <span class="num">0</span>) {
+    count = count + (n % <span class="num">2</span>);
+    n = n / <span class="num">2</span>;
+}
+cout << count;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleTrace('trace2', this)">🔍 ดูตารางแกะรอยตัวแปร & เฉลย</button>
+      </div>
+
+      <div id="trace2" class="trace-panel">
+        <div class="ans-highlight">✅ คำตอบที่ถูกต้องคือ: 3</div>
+        <p style="font-size: 0.9rem; color: #cbd5e1;"><strong>เบื้องหลังอัลกอริทึม:</strong> โค้ดชุดนี้คือการแปลงเลข 13 เป็นเลขฐานสอง (13 = <code>1101</code><sub>2</sub>) แล้วนับว่ามีเลข 1 กี่ตัวครับ</p>
+        <table class="trace-table">
+          <tr><th>รอบที่</th><th>n ก่อนทำ</th><th>n % 2 (เศษ)</th><th>count สะสม</th><th>n ใหม่ (n / 2)</th></tr>
+          <tr><td>1</td><td>13</td><td>1</td><td>0 + 1 = 1</td><td>6</td></tr>
+          <tr><td>2</td><td>6</td><td>0</td><td>1 + 0 = 1</td><td>3</td></tr>
+          <tr><td>3</td><td>3</td><td>1</td><td>1 + 1 = 2</td><td>1</td></tr>
+          <tr><td>4</td><td>1</td><td>1</td><td>2 + 1 = <strong>3</strong></td><td>0 (จบการทำงาน)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 3: ลูปซ้อนลูป Nested Loop (แนวข้อสอบข้อ 31 / 32)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 3: ลูปซ้อนลูป (Nested While Loop)</span>
+        <span class="difficulty diff-hard">ระดับ: ตัวตัดคะแนน</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">จงหาผลลัพธ์ของตัวแปร <strong>s</strong> เมื่อลูปซ้อนลูปทำงานจนเสร็จสิ้น</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>x = <span class="num">1</span>
+s = <span class="num">0</span>
+<span class="kw">while</span> x <= <span class="num">4</span>:
+    y = <span class="num">1</span>
+    <span class="kw">while</span> y <= x:
+        s = s + y
+        y = y + <span class="num">1</span>
+    x = x + <span class="num">1</span>
+<span class="fn">print</span>(s)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> x = <span class="num">1</span>, s = <span class="num">0</span>;
+<span class="kw">while</span> (x <= <span class="num">4</span>) {
+    <span class="kw">int</span> y = <span class="num">1</span>;
+    <span class="kw">while</span> (y <= x) {
+        s = s + y;
+        y = y + <span class="num">1</span>;
+    }
+    x = x + <span class="num">1</span>;
+}
+cout << s;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleTrace('trace3', this)">🔍 ดูตารางแกะรอยตัวแปร & เฉลย</button>
+      </div>
+
+      <div id="trace3" class="trace-panel">
+        <div class="ans-highlight">✅ คำตอบที่ถูกต้องคือ: 20</div>
+        <p style="font-size: 0.9rem; color: #cbd5e1;"><strong>หลักการมองลูปซ้อน:</strong> ลูปนอก (<code>x</code>) กำหนดเพดาน ส่วนลูปใน (<code>y</code>) จะบวกเลขตั้งแต่ 1 ไปจนถึงเพดาน <code>x</code></p>
+        <table class="trace-table">
+          <tr><th>ค่า x (ลูปนอก)</th><th>ค่า y ที่วิ่งในลูปใน (1 ถึง x)</th><th>ผลบวกที่ได้ในรอบนี้</th><th>ค่า s สะสม</th></tr>
+          <tr><td>x = 1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>x = 2</td><td>1, 2</td><td>1 + 2 = 3</td><td>1 + 3 = 4</td></tr>
+          <tr><td>x = 3</td><td>1, 2, 3</td><td>1 + 2 + 3 = 6</td><td>4 + 6 = 10</td></tr>
+          <tr><td>x = 4</td><td>1, 2, 3, 4</td><td>1 + 2 + 3 + 4 = 10</td><td>10 + 10 = <strong>20</strong></td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleTrace(panelId, btn) {
+      const panel = document.getElementById(panelId);
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        btn.textContent = '🔼 ซ่อนเฉลยและตารางแกะรอย';
+      } else {
+        btn.textContent = '🔍 ดูตารางแกะรอยตัวแปร & เฉลย';
+      }
+    }
+  </script>
+
+</body>
+</html>

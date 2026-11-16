@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dek Morton Studio - สอวน. คอมพิวเตอร์ (Step 3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-code-branch"></i>
+        </div>
+        <div class="brand-text">
+          <h2>สอวน. คอมพิวเตอร์ By : DEK MORTON STUDIO</h2>
+          <p>Step 3 • สมองกลตัดสินใจ (Conditionals & Logic)</p>
+        </div>
+      </div>
+
+      <div class="header-right-group">
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-info">
+              <span class="stat-label">Score</span>
+              <span class="stat-value" id="score-val">0</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat-item">
+            <span class="stat-icon">🔥</span>
+            <div class="stat-info">
+              <span class="stat-label">Streak</span>
+              <span class="stat-value" id="streak-val">0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-wrapper">
+    <nav class="tabs-nav cpp-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-theory', this)">
+        <i class="fa-solid fa-book-open"></i> 1. เจาะลึกเงื่อนไข & ตรรกะ
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-drill', this)">
+        <i class="fa-solid fa-terminal"></i> 2. Step 3 Challenge
+      </button>
+    </nav>
+
+    <!-- Tab 1: Theory -->
+    <div id="tab-theory" class="tab-content active">
+      <div class="banner-card cpp-banner">
+        <span class="badge-pill cpp-badge">POSN Computer Science • Step 3</span>
+        <h1>สมองกลตัดสินใจด้วยเงื่อนไข (Conditionals & Logic)</h1>
+        <p>เปลี่ยนโปรแกรมให้คิดวิเคราะห์ได้ด้วย if-else และตัวเชื่อมตรรกะ เพื่อแยกแยะกรณีต่างๆ ตามโจทย์กำหนด</p>
+      </div>
+
+      <div class="code-preview-box">
+        <div class="code-header">
+          <span><i class="fa-solid fa-file-code"></i> step3_logic.cpp</span>
+        </div>
+        <pre><code><span class="code-keyword">#include</span> <span class="code-string">&lt;iostream&gt;</span>
+<span class="code-keyword">using namespace</span> <span class="code-type">std</span>;
+
+<span class="code-type">int</span> <span class="code-func">main</span>() {
+    <span class="code-type">int</span> score;
+    <span class="code-type">cin</span> &gt;&gt; score;
+
+    <span class="code-keyword">if</span> (score &gt;= <span class="code-num">80</span>) {
+        <span class="code-type">cout</span> &lt;&lt; <span class="code-string">"Grade 4"</span> &lt;&lt; <span class="code-string">"\n"</span>;
+    } <span class="code-keyword">else if</span> (score &gt;= <span class="code-num">50</span>) {
+        <span class="code-type">cout</span> &lt;&lt; <span class="code-string">"Grade 3"</span> &lt;&lt; <span class="code-string">"\n"</span>;
+    } <span class="code-keyword">else</span> {
+        <span class="code-type">cout</span> &lt;&lt; <span class="code-string">"Fail"</span> &lt;&lt; <span class="code-string">"\n"</span>;
+    }
+
+    <span class="code-keyword">return</span> <span class="code-num">0</span>;
+}</code></pre>
+      </div>
+
+      <div class="theory-grid">
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-code-fork text-cpp"></i> 1. If - Else If - Else</h3>
+            <span class="tag cpp-tag">Branching</span>
+          </div>
+          <p class="theory-desc">ใช้ตรวจสอบเงื่อนไขเป็นลำดับขั้น เมื่อเงื่อนไขแรกเป็นจริง
+            โปรแกรมจะทำในปีกกาและกระโดดข้ามส่วนที่เหลือทันที</p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-shield-halved text-cpp"></i> 2. AND (&amp;&amp) &amp; OR (||)
+            </h3>
+            <span class="tag cpp-tag">Logical Operators</span>
+          </div>
+          <p class="theory-desc">ใช้รวมเงื่อนไขหลายอย่างเข้าด้วยกัน เช่น <code>(x &gt; 0 &amp;&amp; x &lt; 10)</code>
+            ต้องเป็นจริงทั้งสองฝั่งถึงจะทำงาน</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Drill -->
+    <div id="tab-drill" class="tab-content">
+      <div class="quiz-card">
+        <div class="quiz-meta">
+          <span class="topic-indicator cpp-indicator"><i class="fa-solid fa-terminal"></i> Step 3 Challenge</span>
+          <span class="generator-tag cpp-gen-tag"><i class="fa-solid fa-code-branch"></i> Conditionals Quiz</span>
+        </div>
+
+        <div class="question-box">
+          <h3 class="question-title" id="cpp-q-text">กำลังโหลดโจทย์...</h3>
+          <div class="question-hint" id="cpp-q-hint">คำชี้แนะบริบทจะปรากฏตรงนี้</div>
+        </div>
+
+        <div class="options-grid" id="cpp-options-container"></div>
+
+        <div class="feedback-box hidden" id="cpp-feedback">
+          <div class="feedback-header" id="cpp-fb-title"></div>
+          <div class="feedback-text" id="cpp-fb-desc"></div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action cpp-btn hidden" id="cpp-next-btn" onclick="generateCppQuestion()">
+            ข้อถัดไป <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 3: Advanced C++ Toolbags - Dek Morton Studio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0f111a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .toolbag-card {
+      background: #1a1d2d;
+      border: 1px solid #2e344e;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .toolbag-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #2e344e;
+      padding-bottom: 12px;
+    }
+
+    .toolbag-icon {
+      font-size: 1.8rem;
+    }
+
+    .toolbag-title {
+      font-size: 1.4rem;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .toolbag-desc {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .toolbag-desc strong {
+      color: #f43f5e;
+    }
+
+    .code-container {
+      background: #090a10;
+      border-radius: 10px;
+      border: 1px solid #23273e;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: #121420;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e2235;
+    }
+
+    pre {
+      padding: 16px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    code {
+      color: #f8fafc;
+    }
+
+    .c-include  { color: #f43f5e; font-weight: bold; }
+    .c-keyword  { color: #38bdf8; }
+    .c-type     { color: #fbbf24; }
+    .c-comment  { color: #64748b; font-style: italic; }
+    .c-string   { color: #4de7a8; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <span class="badge">LEVEL 3: ADVANCED TOOLBAGS</span>
+      <h1>📐 กระเป๋าเครื่องมือขั้นสูง ลุยข้อสอบ สอวน.</h1>
+      <p>เสริมความแม่นยำด้านการคำนวณคณิตศาสตร์ โครงสร้างข้อมูล Queue/Stack และตาราง 2 มิติ</p>
+    </header>
+
+    <!-- --------------------------------------------------
+         CARD 1: cmath
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">🔢</span>
+        <h2 class="toolbag-title">หมวด 1: #include &lt;cmath&gt; (กระเป๋าคำนวณคณิตศาสตร์)</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> คำนวณฟังก์ชันทางคณิตศาสตร์ระดับสูง เช่น ถอดรากที่สอง (Square Root), ยกกำลัง, ปัดเศษทศนิยม และหาค่าสัมบูรณ์
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>MATH_ADVANCED.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;cmath&gt;</span> <span class="c-comment">// 1. หยิบกระเป๋าคำนวณคณิตศาสตร์ขั้นสูงมาใช้งาน</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    <span class="c-type">double</span> root_val = sqrt(16); <span class="c-comment">// 2. ถอดสแควร์รูทของ 16 (ผลลัพธ์คือ 4.0)</span>
+    <span class="c-type">double</span> pow_val = pow(2, 3);   <span class="c-comment">// 3. คำนวณ 2 ยกกำลัง 3 (2*2*2 = 8.0)</span>
+    <span class="c-type">int</span> abs_val = abs(-15);       <span class="c-comment">// 4. หาค่าสัมบูรณ์ ถอดเครื่องหมายลบทิ้ง (ผลลัพธ์คือ 15)</span>
+    
+    cout &lt;&lt; <span class="c-string">"Sqrt: "</span> &lt;&lt; root_val &lt;&lt; <span class="c-string">", Pow: "</span> &lt;&lt; pow_val &lt;&lt; <span class="c-string">", Abs: "</span> &lt;&lt; abs_val &lt;&lt; <span class="c-string">"\n"</span>;
+    cout &lt;&lt; <span class="c-string">"Ceil 3.2: "</span> &lt;&lt; ceil(3.2) &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 5. ปัดเศษขึ้นเสมอ (ผลลัพธ์คือ 4)</span>
+    cout &lt;&lt; <span class="c-string">"Floor 3.8: "</span> &lt;&lt; floor(3.8) &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 6. ปัดเศษลงเสมอ (ผลลัพธ์คือ 3)</span>
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------
+         CARD 2: queue & stack
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">⏳</span>
+        <h2 class="toolbag-title">หมวด 2: #include &lt;queue&gt; &amp; &lt;stack&gt; (กระเป๋าคิวและกองซ้อน)</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> 
+        <code>Queue</code> คือ "เข้าก่อน-ออกก่อน" (FIFO) เหมือนต่อคิวซื้อของ | 
+        <code>Stack</code> คือ "เข้าหลังสุด-ออกก่อน" (LIFO) เหมือนจานซ้อนกัน
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>QUEUE_STACK_DEMO.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;queue&gt;</span> <span class="c-comment">// 1. หยิบกระเป๋า Queue (เข้าก่อน ออกก่อน)</span>
+<span class="c-include">#include &lt;stack&gt;</span> <span class="c-comment">// 2. หยิบกระเป๋า Stack (เข้าทีหลัง ออกก่อน)</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    <span class="c-comment">// --- ระบบ Queue (ต่อคิว) ---</span>
+    queue&lt;<span class="c-type">int</span>&gt; q;
+    q.push(10); <span class="c-comment">// คิวที่ 1</span>
+    q.push(20); <span class="c-comment">// คิวที่ 2</span>
+    cout &lt;&lt; <span class="c-string">"First in Queue: "</span> &lt;&lt; q.front() &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// ดูคนหัวแถว (ผลลัพธ์คือ 10)</span>
+    q.pop(); <span class="c-comment">// เอาคนหัวแถวออกไป</span>
+
+    <span class="c-comment">// --- ระบบ Stack (กองซ้อน) ---</span>
+    stack&lt;<span class="c-type">int</span>&gt; s;
+    s.push(100); <span class="c-comment">// วางจานใบที่ 1</span>
+    s.push(200); <span class="c-comment">// วางจานใบที่ 2 ซ้อนทับ</span>
+    cout &lt;&lt; <span class="c-string">"Top of Stack: "</span> &lt;&lt; s.top() &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// ดูจานใบบนสุด (ผลลัพธ์คือ 200)</span>
+    s.pop(); <span class="c-comment">// หยิบจานใบบนสุดออก</span>
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------
+         CARD 3: 2D Grid / Vector
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">🗺️</span>
+        <h2 class="toolbag-title">หมวด 3: 2D Grid (กระเป๋าตาราง 2 มิติ / เมทริกซ์)</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> เก็บข้อมูลเป็นตารางมีแถว (Row) และคอลัมน์ (Column) นิยมใช้ทำโจทย์ตารางพิกัด แผนที่เขาวงกต และเมทริกซ์
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>GRID_2D_DEMO.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;vector&gt;</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    <span class="c-comment">// 1. สร้างตารางขนาด 2 แถว 3 คอลัมน์</span>
+    vector&lt;vector&lt;<span class="c-type">int</span>&gt;&gt; grid = {
+        {1, 2, 3}, <span class="c-comment">// แถวที่ 0</span>
+        {4, 5, 6}  <span class="c-comment">// แถวที่ 1</span>
+    };
+    
+    <span class="c-comment">// 2. เข้าถึงข้อมูลแถวที่ 1 คอลัมน์ที่ 2 (นับเริ่มจาก 0)</span>
+    cout &lt;&lt; <span class="c-string">"Value at row 1, col 2: "</span> &lt;&lt; grid[1][2] &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// ผลลัพธ์คือ 6</span>
+    
+    <span class="c-comment">// 3. วนลูปอ่านค่าทั้งตาราง</span>
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> r = 0; r &lt; 2; r++) {
+        <span class="c-keyword">for</span> (<span class="c-type">int</span> c = 0; c &lt; 3; c++) {
+            cout &lt;&lt; grid[r][c] &lt;&lt; <span class="c-string">" "</span>;
+        }
+        cout &lt;&lt; <span class="c-string">"\n"</span>;
+    }
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

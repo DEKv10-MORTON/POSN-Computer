@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dek Morton Studio - สอวน. คอมพิวเตอร์ (Step 5)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-box-archive"></i>
+        </div>
+        <div class="brand-text">
+          <h2>สอวน. คอมพิวเตอร์ By : DEK MORTON STUDIO</h2>
+          <p>Step 5 • คลังเก็บข้อมูลและอาวุธลับ (Arrays, Strings &amp; STL)</p>
+        </div>
+      </div>
+
+      <div class="header-right-group">
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-info">
+              <span class="stat-label">Score</span>
+              <span class="stat-value" id="score-val">0</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat-item">
+            <span class="stat-icon">🔥</span>
+            <div class="stat-info">
+              <span class="stat-label">Streak</span>
+              <span class="stat-value" id="streak-val">0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-wrapper">
+    <nav class="tabs-nav cpp-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-theory', this)">
+        <i class="fa-solid fa-book-open"></i> 1. เจาะลึก Array &amp; Vector
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-drill', this)">
+        <i class="fa-solid fa-terminal"></i> 2. Step 5 Challenge
+      </button>
+    </nav>
+
+    <!-- Tab 1: Theory -->
+    <div id="tab-theory" class="tab-content active">
+      <div class="banner-card cpp-banner">
+        <span class="badge-pill cpp-badge">POSN Computer Science • Step 5</span>
+        <h1>คลังเก็บข้อมูลและอาวุธลับ (Arrays, Strings &amp; STL Vector)</h1>
+        <p>จัดการข้อมูลชุดใหญ่ จัดเรียงข้อมูล และใช้พลังแห่ง STL (Standard Template Library) เพื่อพิชิตโจทย์ สอวน.</p>
+      </div>
+
+      <div class="code-preview-box">
+        <div class="code-header">
+          <span><i class="fa-solid fa-file-code"></i> step5_vector_stl.cpp</span>
+        </div>
+        <pre><code><span class="code-keyword">#include</span> <span class="code-string">&lt;iostream&gt;</span>
+<span class="code-keyword">#include</span> <span class="code-string">&lt;vector&gt;</span>
+<span class="code-keyword">#include</span> <span class="code-string">&lt;algorithm&gt;</span> <span class="code-comment">// จำเป็นสำหรับการใช้งาน sort()</span>
+<span class="code-keyword">using namespace</span> <span class="code-type">std</span>;
+
+<span class="code-type">int</span> <span class="code-func">main</span>() {
+    <span class="code-type">vector</span>&lt;<span class="code-type">int</span>&gt; v = {<span class="code-num">45</span>, <span class="code-num">12</span>, <span class="code-num">78</span>, <span class="code-num">33</span>};
+
+    <span class="code-comment">// จัดเรียงข้อมูลจากน้อยไปมากด้วย sort</span>
+    <span class="code-func">sort</span>(v.<span class="code-func">begin</span>(), v.<span class="code-func">end</span>());
+
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> x : v) {
+        <span class="code-type">cout</span> &lt;&lt; x &lt;&lt; <span class="code-string">" "</span>;
+    }
+    <span class="code-type">cout</span> &lt;&lt; <span class="code-string">"\n"</span>;
+    <span class="code-keyword">return</span> <span class="code-num">0</span>;
+}</code></pre>
+      </div>
+
+      <div class="theory-grid">
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-list-ol text-cpp"></i> 1. Array (อาเรย์พื้นฐาน)</h3>
+            <span class="tag cpp-tag">Static Storage</span>
+          </div>
+          <p class="theory-desc">เก็บข้อมูลชนิดเดียวกันหลายๆ ค่าในตัวแปรเดียว เริ่มนับช่องจาก <code>0</code> เสมอ
+            (Zero-based indexing)</p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-arrows-split-up-and-left text-cpp"></i> 2. Vector
+              (อาเรย์ยืดหยุ่น)</h3>
+            <span class="tag cpp-tag">STL Dynamic Array</span>
+          </div>
+          <p class="theory-desc">อาเรย์มหัศจรรย์จาก <code>&lt;vector&gt;</code>
+            ที่สามารถเพิ่มหรือลดขนาดได้ตามต้องการระหว่างรันโปรแกรม นิยมใช้แทนอาเรย์ปกติใน สอวน.</p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-arrow-down-wide-short text-cpp"></i> 3. sort() ฟังก์ชันจัดเรียง
+            </h3>
+            <span class="tag cpp-tag">&lt;algorithm&gt;</span>
+          </div>
+          <p class="theory-desc">คำสั่งมหัศจรรย์ใช้จัดเรียงข้อมูลในเวลาอันรวดเร็ว ($O(N \log N)$) ด้วย
+            <code>sort(v.begin(), v.end());</code></p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-font text-cpp"></i> 4. String Methods</h3>
+            <span class="tag cpp-tag">Text Manipulation</span>
+          </div>
+          <p class="theory-desc">จัดการข้อความได้ง่ายขึ้นด้วยฟังก์ชันพ่วงท้าย เช่น <code>s.length()</code> เช็กความยาว
+            หรือการเข้าถึงตัวอักษรด้วย <code>s[i]</code></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Drill -->
+    <div id="tab-drill" class="tab-content">
+      <div class="quiz-card">
+        <div class="quiz-meta">
+          <span class="topic-indicator cpp-indicator"><i class="fa-solid fa-terminal"></i> Step 5 Challenge</span>
+          <span class="generator-tag cpp-gen-tag"><i class="fa-solid fa-box-archive"></i> Arrays &amp; STL Quiz</span>
+        </div>
+
+        <div class="question-box">
+          <h3 class="question-title" id="cpp-q-text">กำลังโหลดโจทย์...</h3>
+          <div class="question-hint" id="cpp-q-hint">คำชี้แนะบริบทจะปรากฏตรงนี้</div>
+        </div>
+
+        <div class="options-grid" id="cpp-options-container"></div>
+
+        <div class="feedback-box hidden" id="cpp-feedback">
+          <div class="feedback-header" id="cpp-fb-title"></div>
+          <div class="feedback-text" id="cpp-fb-desc"></div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action cpp-btn hidden" id="cpp-next-btn" onclick="generateCppQuestion()">
+            ข้อถัดไป <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

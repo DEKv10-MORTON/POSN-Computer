@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 2: C++ Toolbag Directory - Dek Morton Studio</title>
+  <style>
+    /* --------------------------------------------------
+       Global Setup & Core Styles
+    -------------------------------------------------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0f111a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* --------------------------------------------------
+       Header Section
+    -------------------------------------------------- */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: #4de7a8;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(77, 231, 168, 0.15);
+      color: #4de7a8;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(77, 231, 168, 0.3);
+    }
+
+    /* --------------------------------------------------
+       Toolbag Card Layout
+    -------------------------------------------------- */
+    .toolbag-card {
+      background: #1a1d2d;
+      border: 1px solid #2e344e;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .toolbag-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #2e344e;
+      padding-bottom: 12px;
+    }
+
+    .toolbag-icon {
+      font-size: 1.8rem;
+    }
+
+    .toolbag-title {
+      font-size: 1.4rem;
+      color: #6366f1;
+      font-weight: 700;
+    }
+
+    .toolbag-desc {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .toolbag-desc strong {
+      color: #f43f5e;
+    }
+
+    /* --------------------------------------------------
+       Code Block Container & Styling
+    -------------------------------------------------- */
+    .code-container {
+      background: #090a10;
+      border-radius: 10px;
+      border: 1px solid #23273e;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: #121420;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e2235;
+    }
+
+    pre {
+      padding: 16px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    code {
+      color: #f8fafc;
+    }
+
+    /* Syntax Highlighting Simulators */
+    .c-include  { color: #f43f5e; font-weight: bold; } /* สีหัวเครื่องมือ */
+    .c-keyword  { color: #38bdf8; } /* สีคำสั่งจองเฉพาะ */
+    .c-type     { color: #fbbf24; } /* สีชนิดข้อมูล */
+    .c-comment  { color: #64748b; font-style: italic; } /* สีคำอธิบายกำกับ // */
+    .c-string   { color: #4de7a8; } /* สีตัวอักษร/ข้อความ */
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <span class="badge">LEVEL 2: ESSENTIAL TOOLBAGS</span>
+      <h1>🧰 คู่มือคู่ใจ 4 กระเป๋าเครื่องมือ C++</h1>
+      <p>สรุปการเรียกใช้หัวเครื่องมือและตัวอย่างการใช้งานคำสั่งย่อย พร้อมคำอธิบายแบบบรรทัดต่อบรรทัด</p>
+    </header>
+
+    <!-- --------------------------------------------------
+         CARD 1: iostream
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">📥</span>
+        <h2 class="toolbag-title">หมวด 1: #include &lt;iostream&gt;</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> ใช้รับข้อมูลเข้าจากผู้ใช้หรือคีย์บอร์ด และแสดงผลลัพธ์ออกทางหน้าจอ เปรียบเหมือนระบบช่องทางส่งเข้า-ออกหลักของบ้าน
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>MAIN_IOSTREAM.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span> <span class="c-comment">// 1. หยิบกระเป๋าหลักสำหรับรับค่าและแสดงผลมาเตรียมไว้</span>
+
+<span class="c-keyword">using namespace</span> std; <span class="c-comment">// 2. ขอใช้พื้นที่มาตรฐานของ C++ เพื่อความสะดวกในการเรียกคำสั่ง</span>
+
+<span class="c-type">int</span> main() { <span class="c-comment">// 3. จุดเริ่มต้นการทำงานของโปรแกรม</span>
+    <span class="c-type">int</span> score = 0; <span class="c-comment">// 4. ประกาศตัวแปรเก็บคะแนน เริ่มต้นเท่ากับ 0</span>
+    
+    cout &lt;&lt; <span class="c-string">"Enter your score: "</span>; <span class="c-comment">// 5. แสดงข้อความสั่งให้ผู้ใช้กรอกข้อมูล</span>
+    cin &gt;&gt; score; <span class="c-comment">// 6. รับค่าตัวเลขจากคีย์บอร์ดมาเก็บไว้ในตัวแปร score</span>
+    
+    cout &lt;&lt; <span class="c-string">"Your score is: "</span> &lt;&lt; score &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 7. แสดงผลลัพธ์ออกทางหน้าจอพร้อมขึ้นบรรทัดใหม่</span>
+    
+    <span class="c-keyword">return</span> 0; <span class="c-comment">// 8. จบการทำงานของโปรแกรมอย่างสมบูรณ์</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------
+         CARD 2: vector
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">📦</span>
+        <h2 class="toolbag-title">หมวด 2: #include &lt;vector&gt;</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> จัดการกลุ่มข้อมูลประเภทเดียวกันหลายๆ ตัว สามารถเพิ่ม ลด หรือขยายขนาดกล่องได้ตามต้องการเหมือนกล่องพลาสติกอเนกประสงค์
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>VECTOR_DEMO.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;vector&gt;</span>   <span class="c-comment">// 1. หยิบกระเป๋า Vector สำหรับสร้างกล่องเก็บข้อมูลแบบยืดหยุ่น</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    vector&lt;<span class="c-type">int</span>&gt; scores; <span class="c-comment">// 2. สร้างกล่อง Vector เก็บเลขจำนวนเต็ม (เริ่มต้นเป็นกล่องว่าง)</span>
+    
+    scores.push_back(50); <span class="c-comment">// 3. ยัดข้อมูลเลข 50 เข้าไปต่อท้ายกล่องเป็นช่องแรก</span>
+    scores.push_back(85); <span class="c-comment">// 4. ยัดข้อมูลเลข 85 เข้าไปต่อท้ายกล่องเพิ่มอีกตัว</span>
+    
+    cout &lt;&lt; <span class="c-string">"Total items: "</span> &lt;&lt; scores.size() &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 5. เช็กขนาดข้อมูลในกล่อง (ผลลัพธ์คือ 2)</span>
+    cout &lt;&lt; <span class="c-string">"First item: "</span> &lt;&lt; scores[0] &lt;&lt; <span class="c-string">"\n"</span>;     <span class="c-comment">// 6. ดึงข้อมูลช่องแรก (ตำแหน่งที่ 0) ออกมาดู (ผลลัพธ์คือ 50)</span>
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------
+         CARD 3: algorithm
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">⚙️</span>
+        <h2 class="toolbag-title">หมวด 3: #include &lt;algorithm&gt;</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> จัดการเรียงลำดับชุดข้อมูล (เช่น เรียงน้อยไปมาก) หรือค้นหาค่าต่ำสุด-สูงสุดได้อย่างรวดเร็วในบรรทัดเดียว
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>ALGORITHM_DEMO.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;vector&gt;</span>
+<span class="c-include">#include &lt;algorithm&gt;</span> <span class="c-comment">// 1. หยิบกระเป๋า Algorithm สำหรับใช้คำสั่งเรียงลำดับและจัดการคำนวณ</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    vector&lt;<span class="c-type">int</span>&gt; numbers = {40, 10, 30, 20}; <span class="c-comment">// 2. สร้างกล่อง Vector และใส่ตัวเลขสลับตำแหน่งไว้</span>
+    
+    <span class="c-comment">// 3. สั่งเรียงลำดับข้อมูลในกล่องจากน้อยไปมาก (ตั้งแต่ตัวแรก .begin() ถึงตัวสุดท้าย .end())</span>
+    sort(numbers.begin(), numbers.end()); 
+    
+    cout &lt;&lt; <span class="c-string">"Sorted first item: "</span> &lt;&lt; numbers[0] &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 4. แสดงผลข้อมูลช่องแรกหลังเรียงแล้ว (ผลลัพธ์คือ 10)</span>
+    cout &lt;&lt; <span class="c-string">"Maximum value: "</span> &lt;&lt; max(15, 25) &lt;&lt; <span class="c-string">"\n"</span>;    <span class="c-comment">// 5. หาค่าที่มากที่สุดระหว่าง 15 กับ 25 (ผลลัพธ์คือ 25)</span>
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------
+         CARD 4: string
+    -------------------------------------------------- -->
+    <div class="toolbag-card">
+      <div class="toolbag-header">
+        <span class="toolbag-icon">📝</span>
+        <h2 class="toolbag-title">หมวด 4: #include &lt;string&gt;</h2>
+      </div>
+      <p class="toolbag-desc">
+        <strong>หน้าที่หลัก:</strong> จัดการข้อความ ตัวอักษรยาวๆ หรือประโยคคำพูด รวมถึงนับจำนวนและความยาวของตัวอักษร
+      </p>
+      
+      <div class="code-container">
+        <div class="code-header">
+          <span>STRING_DEMO.CPP</span>
+          <span>C++</span>
+        </div>
+        <pre><code><span class="c-include">#include &lt;iostream&gt;</span>
+<span class="c-include">#include &lt;string&gt;</span> <span class="c-comment">// 1. หยิบกระเป๋า String สำหรับจัดการข้อความโดยเฉพาะ</span>
+
+<span class="c-keyword">using namespace</span> std;
+
+<span class="c-type">int</span> main() {
+    string name = <span class="c-string">"DekMorton"</span>; <span class="c-comment">// 2. สร้างตัวแปรเก็บข้อความ</span>
+    
+    cout &lt;&lt; <span class="c-string">"Hello, "</span> &lt;&lt; name &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 3. แสดงข้อความทักทายออกหน้าจอ</span>
+    cout &lt;&lt; <span class="c-string">"Text length: "</span> &lt;&lt; name.length() &lt;&lt; <span class="c-string">"\n"</span>; <span class="c-comment">// 4. นับความยาวตัวอักษร (ผลลัพธ์คือ 9)</span>
+    cout &lt;&lt; <span class="c-string">"First letter: "</span> &lt;&lt; name[0] &lt;&lt; <span class="c-string">"\n"</span>;     <span class="c-comment">// 5. ดึงตัวอักษรตำแหน่งแรกสุดมาเช็ก (ผลลัพธ์คือ 'D')</span>
+    
+    <span class="c-keyword">return</span> 0;
+}</code></pre>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

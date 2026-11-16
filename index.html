@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dek Morton Studio - C++ Masterclass</title>
+  <style>
+    :root {
+      --bg-main: #0f111a;
+      --bg-panel: #181b2e;
+      --bg-card: #1e2238;
+      --accent-cyan: #38bdf8;
+      --accent-green: #4de7a8;
+      --accent-purple: #818cf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #2a2f4c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ---------------- Top Navbar ---------------- */
+    header {
+      background: linear-gradient(90deg, #181b2e 0%, #1e2238 100%);
+      border-bottom: 2px solid var(--border-color);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo-area {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      background: var(--bg-card);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo-area span {
+      color: var(--accent-green);
+    }
+
+    .header-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+
+    /* ---------------- Main Layout ---------------- */
+    .main-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 70px);
+    }
+
+    /* Left Sidebar */
+    sidebar {
+      width: 320px;
+      background-color: var(--bg-panel);
+      border-right: 2px solid var(--border-color);
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-btn:hover {
+      background: #252b48;
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-color: var(--accent-cyan);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Dropdown menu for Level 1 */
+    .dropdown-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 15px;
+      margin-top: 8px;
+      border-left: 2px solid var(--accent-cyan);
+    }
+
+    .submenu.show {
+      display: flex;
+    }
+
+    .sub-btn {
+      background: #141726;
+      color: var(--text-muted);
+      border: 1px solid #232840;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sub-btn:hover {
+      background: #1e2238;
+      color: var(--accent-green);
+      border-color: var(--accent-green);
+      padding-left: 18px;
+    }
+
+    /* Right Content Area (Video Display) */
+    .content-area {
+      flex: 1;
+      background-color: var(--bg-main);
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-card-wrapper {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .video-info-header {
+      margin-bottom: 15px;
+    }
+
+    .video-info-header h3 {
+      font-size: 1.3rem;
+      color: var(--accent-green);
+      margin-bottom: 4px;
+    }
+
+    .video-info-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .video-responsive {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      /* สัดส่วน 16:9 */
+      height: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border-color);
+    }
+
+    .video-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ซ่อน/แสดงหน้าวิดีโอแต่ละหมวด */
+    .video-section {
+      display: none;
+    }
+
+    .video-section.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="logo-area">Dek <span>Morton Studio</span></div>
+    <div class="header-title">สอวน. คอมพิวเตอร์ (POSN Computer)</div>
+    <div style="width: 140px;"></div> <!-- เว้นพื้นที่สมดุลขวา -->
+  </header>
+
+  <!-- Main Workspace -->
+  <div class="main-container">
+
+    <!-- Left Sidebar Menu -->
+    <sidebar>
+      <!-- ปุ่มที่ 1: ภาษา Code คืออะไร (ลิงก์ไปยังคลิป YouTube ที่คุณอัปโหลด) -->
+      <button class="nav-btn active" onclick="switchVideo('intro-video', this)">
+        <span>💡 ภาษา Code คืออะไร?</span>
+      </button>
+
+      <!-- ปุ่มที่ 2: กระเป๋าเครื่องมือ (เตรียมไว้สำหรับคลิปตัวถัดไป) -->
+      <button class="nav-btn" onclick="switchVideo('toolbag-video', this)">
+        <span>🧰 กระเป๋าเครื่องมือ C++</span>
+      </button>
+
+      <hr style="border:0; border-top:1px solid var(--border-color); margin: 6px 0;">
+
+      <!-- Level 1 พร้อมเมนูย่อย Step 1-5 -->
+      <div class="dropdown-container">
+        <button class="nav-btn" onclick="toggleSubmenu()">
+          <span>🚀 Level 1: พื้นฐาน C++</span>
+          <span id="arrow-icon">▼</span>
+        </button>
+        <div class="submenu" id="level1-submenu">
+          <button class="sub-btn" onclick="openFolder('level1/step1')">Step 1: โครงสร้างและคำสั่งพิมพ์</button>
+          <button class="sub-btn" onclick="openFolder('level1/step2')">Step 2: ตัวแปรและการคำนวณ</button>
+          <button class="sub-btn" onclick="openFolder('level1/step3')">Step 3: เงื่อนไข If-Else</button>
+          <button class="sub-btn" onclick="openFolder('level1/step4')">Step 4: วงลูป For &amp; While</button>
+          <button class="sub-btn" onclick="openFolder('level1/step5')">Step 5: ฟังก์ชันพื้นฐาน</button>
+        </div>
+      </div>
+
+      <!-- Level 2 (ลิงก์ไปหน้าโฟลเดอร์อื่นตามที่คุณออกแบบ) -->
+      <button class="nav-btn" onclick="openFolder('level2')">
+        <span>📦 Level 2: Toolbags (Vector/Sort)</span>
+      </button>
+
+      <!-- Level 3 -->
+      <button class="nav-btn" onclick="openFolder('level3')">
+        <span>📐 Level 3: สอวน. Advanced</span>
+      </button>
+
+      <hr style="border:0; border-top:1px solid var(--border-color); margin: 6px 0;">
+      <div
+        style="font-size: 0.75rem; color: var(--text-muted); padding-left: 6px; font-weight: 600; letter-spacing: 0.5px;">
+        🎯 3 เสาหลักพิชิต สอวน.
+      </div>
+
+      <!-- เสาหลักที่ 1: ถอดรหัสตรรกะและลูป (ปุ่มเดิมที่ปรับชื่อให้ชัดขึ้น) -->
+      <button class="nav-btn" onclick="openFolder('arena')"
+        style="background: linear-gradient(135deg, #1e293b, #0f172a); border-color: var(--accent-green);">
+        <span style="color: var(--accent-green);">⚔️ 1. ฝึก Logic & แกะลูป</span>
+      </button>
+
+      <!-- เสาหลักที่ 2: คณิตศาสตร์แปลงร่างเป็นโค้ด -->
+      <button class="nav-btn" onclick="openFolder('math-coding')"
+        style="background: linear-gradient(135deg, #1e293b, #0f172a); border-color: var(--accent-cyan);">
+        <span style="color: var(--accent-cyan);">📐 2. Math for Coding</span>
+      </button>
+
+      <!-- เสาหลักที่ 3: ตารางพิกัดและสถานการณ์จำลอง -->
+      <button class="nav-btn" onclick="openFolder('grid-sim')"
+        style="background: linear-gradient(135deg, #1e293b, #0f172a); border-color: var(--accent-purple);">
+        <span style="color: var(--accent-purple);">🗺️ 3. 2D Grid & Simulation</span>
+      </button>
+
+      <!-- ปุ่มที่ 4: ตะลุยโจทย์ข้อสอบจริง (Pixelmath Playlist) -->
+      <button class="nav-btn"
+        onclick="window.open('https://www.youtube.com/watch?v=lJchf-FlxmA&list=PLsaLbFPkNd54x_WeUe-q1s_T98R56KuG-', '_blank')">
+        <span>🎯 4. ติว สอวน.คอม ข้อสอบจริง</span>
+      </button>
+    </sidebar>
+
+    <!-- Right Video Display Area -->
+    <div class="content-area">
+
+      <!-- วิดีโอที่ 1: ภาษา Code คืออะไร (ดึงจาก YouTube ของคุณ) -->
+      <div id="intro-video" class="video-section active video-card-wrapper">
+        <div class="video-info-header">
+          <h3>C++ คืออะไร และสำคัญอย่างไร?</h3>
+          <p>ทำความเข้าใจแนวคิดภาษาโปรแกรมมิ่งและการเปรียบเทียบก่อนเริ่มต้นเขียนโค้ดจริง</p>
+        </div>
+        <div
+          style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--border-color); box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
+
+          <!-- ภาพปกวิดีโอ (Thumbnail) -->
+          <img src="you1.jpg" alt="Dek Morton Studio Video"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85;">
+
+          <!-- เลเยอร์คลิกเพื่อเปิด YouTube ในหน้าต่างใหม่ -->
+          <a href="https://www.youtube.com/watch?v=_mJTz3_hti4" target="_blank"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; background: rgba(0,0,0,0.2); transition: 0.3s;"
+            onmouseover="this.style.background='rgba(0,0,0,0.4)'" onmouseout="this.style.background='rgba(0,0,0,0.2)'">
+
+            <!-- ปุ่ม Play สีแดง -->
+            <div
+              style="background: rgba(239, 68, 68, 0.9); color: #fff; width: 75px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.5);">
+              ▶
+            </div>
+
+          </a>
+        </div>
+      </div>
+
+      <!-- วิดีโอที่ 2: กระเป๋าเครื่องมือ (เตรียมไว้สำหรับคลิปตัวถัดไปของคุณ) -->
+      <div id="toolbag-video" class="video-section video-card-wrapper">
+        <div class="video-info-header">
+          <h3>🧰 กระเป๋าเครื่องมือ C++ (Toolbags)</h3>
+          <p>แนะนำชุดเครื่องมือและไลบรารีสำคัญที่ต้องพกติดตัวเวลาลุยโจทย์ สอวน.</p>
+        </div>
+        <div class="video-responsive">
+          <!-- เมื่อทำคลิปเสร็จแล้ว นำลิงก์ YouTube embed มาเปลี่ยนแทนที่เครื่องหมายคำพูดด้านล่างได้เลยครับ -->
+          <iframe src="https://www.youtube.com/embed/Y9Pqnw0zams" title="กระเป๋าเครื่องมือ C++"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JavaScript ควบคุมการกดปุ่มและเมนูย่อย -->
+  <script>
+    // สลับหน้าจอวิดีโอทางขวาเมื่อกดปุ่มเมนูซ้าย
+    function switchVideo(sectionId, btnElement) {
+      // ซ่อนทุกวิดีโอ
+      document.querySelectorAll('.video-section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      // เอาสถานะ active ออกจากปุ่มหลักทั้งหมด (ยกเว้น Level)
+      document.querySelectorAll('sidebar > .nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // แสดงวิดีโอที่เลือก
+      document.getElementById(sectionId).classList.add('active');
+      // ใส่ไฮไลต์ปุ่มที่คลิก
+      btnElement.classList.add('active');
+    }
+
+    // เปิด-ปิด เมนูย่อย Level 1
+    function toggleSubmenu() {
+      const submenu = document.getElementById('level1-submenu');
+      const arrow = document.getElementById('arrow-icon');
+      submenu.classList.toggle('show');
+      arrow.textContent = submenu.classList.contains('show') ? '▲' : '▼';
+    }
+
+    // ฟังก์ชันสำหรับเปิดไปโฟลเดอร์ของ Level ต่างๆ (ตามที่คุณระบุว่าใช้ index.html แยกตามโฟลเดอร์)
+    function openFolder(path) {
+      // ตัวอย่าง: ถ้าไฟล์ชื่อ index.html อยู่ในโฟลเดอร์ย่อย สามารถเปลี่ยนเส้นทางได้ที่นี่
+      window.location.href = path + '/index.html';
+    }
+  </script>
+
+</body>
+
+</html>

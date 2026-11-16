@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เสาหลักที่ 2: Math for Coding - Dek Morton Studio</title>
+  <style>
+    :root {
+      --bg-main: #0f111a;
+      --bg-card: #1a1d2d;
+      --bg-code: #090a10;
+      --accent-cyan: #38bdf8;
+      --accent-green: #4de7a8;
+      --accent-yellow: #fbbf24;
+      --accent-pink: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #2e344e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px 60px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Concept Box */
+    .concept-box {
+      background: linear-gradient(135deg, #181c2e 0%, #1e243b 100%);
+      border: 1px solid var(--accent-yellow);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 35px;
+    }
+
+    .concept-box h3 {
+      color: var(--accent-yellow);
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    /* Challenge Card */
+    .challenge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .challenge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .challenge-title {
+      font-size: 1.3rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .difficulty {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .diff-easy {
+      background: rgba(77, 231, 168, 0.15);
+      color: var(--accent-green);
+    }
+
+    .diff-med {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--accent-yellow);
+    }
+
+    .diff-hard {
+      background: rgba(244, 63, 94, 0.15);
+      color: var(--accent-pink);
+    }
+
+    .math-formula-box {
+      background: #141726;
+      border-left: 4px solid var(--accent-cyan);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+      color: var(--accent-yellow);
+      font-family: 'Cambria Math', 'Consolas', monospace;
+    }
+
+    /* Code Comparison */
+    .code-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .code-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-box {
+      background: var(--bg-code);
+      border-radius: 10px;
+      border: 1px solid #23273e;
+      overflow: hidden;
+    }
+
+    .code-label {
+      background: #121420;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e2235;
+    }
+
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .kw {
+      color: #38bdf8;
+    }
+
+    .num {
+      color: #fbbf24;
+    }
+
+    .cmt {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .fn {
+      color: #4de7a8;
+    }
+
+    /* Action & Explanation */
+    .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .reveal-btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .reveal-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    .explain-panel {
+      display: none;
+      margin-top: 18px;
+      background: #121524;
+      border: 1px dashed var(--accent-cyan);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .explain-panel.open {
+      display: block;
+    }
+
+    .explain-content {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .explain-content ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .explain-content li {
+      margin-bottom: 6px;
+    }
+  </style>
+  <!-- วางโค้ด MathJax ตรงนี้ครับ -->
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <a href="../index.html" class="back-btn">⬅ กลับหน้าหลัก C++ Hub</a>
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Dek Morton Studio • เสาหลักที่ 2</span>
+    </div>
+
+    <header>
+      <span class="badge">PILLAR 2: MATH FOR CODING</span>
+      <h1>📐 แปลงสูตรคณิตศาสตร์ให้เป็นโค้ด สอวน.</h1>
+      <p>เทคนิคเปลี่ยนสัญลักษณ์ผลบวก (Summation) และผลคูณ (Product) ให้กลายเป็นลูปในโปรแกรม</p>
+    </header>
+
+    <!-- แผงปุ่มเลือกคลิปติวเตอร์ เสาหลักที่ 2 -->
+    <div
+      style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; margin-bottom: 30px;">
+      <h3 style="color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.1rem;">🎥 คลังคลิปติวเตอร์ Math for Coding
+        (เลือกหัวข้อ)</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+
+        <!-- ปุ่มที่ 1: ซิกม่า (มีลิงก์คลิปแล้ว) -->
+        <button onclick="switchMathVideo('video-sigma', this)" class="math-tab-btn active"
+          style="background: #0284c7; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: left;">
+          📌 1. ซิกม่า & อนุกรม ($\sum$)
+        </button>
+
+        <!-- ปุ่มที่ 2 -->
+        <button onclick="switchMathVideo('video-modulo', this)" class="math-tab-btn"
+          style="background: #141726; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: left;">
+          ⚙️ 2. เศษเหลือ & โมดูลาร์ (%)
+        </button>
+
+        <!-- ปุ่มที่ 3 -->
+        <button onclick="switchMathVideo('video-gcd', this)" class="math-tab-btn"
+          style="background: #141726; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: left;">
+          🔢 3. ห.ร.ม. & ทฤษฎีจำนวน
+        </button>
+
+        <!-- ปุ่มที่ 4 -->
+        <button onclick="switchMathVideo('video-log', this)" class="math-tab-btn"
+          style="background: #141726; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: left;">
+          📈 4. ลอการิทึมและฟังก์ชัน
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ส่วนแสดงผลวิดีโอ (เปลี่ยนคลิปตามปุ่มที่กด) -->
+    <div id="video-sigma" class="math-video-section active">
+      <div
+        style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid var(--border-color);">
+        <iframe src="https://www.youtube.com/embed/fYVQWz1_Gds" title="ติวเตอร์ซิกม่า"
+          style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div id="video-modulo" class="math-video-section" style="display: none;">
+      <div
+        style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid var(--border-color);">
+        <iframe src="https://www.youtube.com/embed/aT6YQLTfuME" title="
+เทคนิค คอนกรูเอนซ์ มอดูโล" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div id="video-gcd" class="math-video-section" style="display: none;">
+      <div
+        style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid var(--border-color);">
+        <iframe src="https://www.youtube.com/embed/js9KFM89IDI" title="ติวเตอร์ ห.ร.ม."
+          style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div id="video-log" class="math-video-section" style="display: none;">
+      <div
+        style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid var(--border-color);">
+        <iframe src="https://www.youtube.com/embed/FVVxsFm_hwM" title="ติวเตอร์ลอการิทึม"
+          style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- JavaScript สำหรับสลับคลิปติวเตอร์ -->
+    <script>
+      function switchMathVideo(sectionId, btnElement) {
+        document.querySelectorAll('.math-video-section').forEach(sec => sec.style.display = 'none');
+        document.querySelectorAll('.math-tab-btn').forEach(btn => {
+          btn.style.background = '#141726';
+          btn.style.color = 'var(--text-muted)';
+        });
+
+        document.getElementById(sectionId).style.display = 'block';
+        btnElement.style.background = '#0284c7';
+        btnElement.style.color = '#fff';
+      }
+    </script>
+    <!-- Cheatsheet: หลักการแปลงสูตร -->
+    <div class="concept-box">
+      <h3>💡 สูตรลับการแปลภาษา "คณิตศาสตร์ ➔ โค้ด"</h3>
+      <p style="font-size: 0.92rem; color: #cbd5e1; margin-top: 6px;">
+        โจทย์ สอวน. มักออกข้อสอบแนวให้หาโปรแกรมที่ตรงกับสูตรอนุกรมทางคณิตศาสตร์ หลักการจำง่ายๆ มีดังนี้:
+      </p>
+      <ul style="margin-top: 8px; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1;">
+        <li><strong>เครื่องหมายผลบวก ($\sum$):</strong> ให้ประกาศตัวแปรผลรวม (เช่น <code>total = 0</code>)
+          แล้วใช้ลูปบวกสะสม <code>total = total + สูตร</code></li>
+        <li><strong>เครื่องหมายผลคูณ ($\prod$):</strong> ให้ประกาศตัวแปรผลคูณเริ่มต้นเป็น 1 (เช่น <code>ans = 1</code>)
+          แล้วใช้ลูปคูณสะสม <code>ans = ans * สูตร</code></li>
+        <li><strong>ขอบเขตลูป:</strong> ตัวแปรเริ่มจากตัวล่างของซิกม่า (เช่น $n=3$) วิ่งไปจนถึงตัวบน (เช่น $n \le 10$)
+          และต้องขยับค่าตัวนับ <code>n = n + 1</code> ทุกรอบ</li>
+      </ul>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 1: Summation (แนวข้อสอบข้อ 45)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 1: แปลงร่างอนุกรมผลบวก (Summation)</span>
+        <span class="difficulty diff-easy">ระดับ: พื้นฐาน</span>
+      </div>
+
+      <div class="math-formula-box">
+        โจทย์ต้องการคำนวณค่าของ: $\sum_{n=3}^{10} (2n + 1)$
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">โปรแกรม C++ ใดที่เขียนถูกต้องตามขอบเขตและสูตรข้างต้น?</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>n = <span class="num">3</span>
+total = <span class="num">0</span>
+<span class="kw">while</span> n <= <span class="num">10</span>:
+    total = total + (<span class="num">2</span> * n + <span class="num">1</span>)
+    n = n + <span class="num">1</span>
+<span class="fn">print</span>(total)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> n = <span class="num">3</span>;
+<span class="kw">int</span> total = <span class="num">0</span>;
+<span class="kw">while</span> (n <= <span class="num">10</span>) {
+    total = total + (<span class="num">2</span> * n + <span class="num">1</span>);
+    n = n + <span class="num">1</span>;
+}
+cout << total;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp1', this)">🔍 ดูหลักการตรวจสอบโจทย์ Summation</button>
+      </div>
+
+      <div id="exp1" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-cyan);">จุดสังเกตที่ต้องเช็กในห้องสอบ:</strong>
+          <ul>
+            <li><strong>จุดเริ่มต้น (Initialization):</strong> ต้องกำหนด <code>n = 3</code> ตามด้านล่างของเครื่องหมาย
+              $\sum$</li>
+            <li><strong>เงื่อนไขลูป (Condition):</strong> ต้องเป็น <code>n <= 10</code> (รวมตัวที่ 10 ด้วย) ตามด้านบนของ
+              $\sum$</li>
+            <li><strong>การขยับค่า (Increment):</strong> ในลูปต้องมี <code>n = n + 1</code> เสมอ ไม่งั้นจะกลายเป็น
+              Infinite Loop</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 2: Product (แนวข้อสอบข้อ 47)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 2: แปลงร่างอนุกรมผลคูณ (Product)</span>
+        <span class="difficulty diff-med">ระดับ: ตัวตัดคะแนน</span>
+      </div>
+
+      <div class="math-formula-box">
+        โจทย์ต้องการคำนวณค่าของ: $\prod_{i=1}^{29} (2i + 1)$
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">ระวังตัวแปรเริ่มต้น! หากเป็นผลคูณ ตัวแปรเก็บค่าห้ามเริ่มที่ 0
+        เด็ดขาด</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>ans = <span class="num">1</span>   <span class="cmt"># ต้องเริ่มต้นที่ 1 เสมอสำหรับการคูณ!</span>
+i = <span class="num">1</span>
+<span class="kw">while</span> i <= <span class="num">29</span>:
+    ans = ans * (<span class="num">2</span> * i + <span class="num">1</span>)
+    i = i + <span class="num">1</span>
+<span class="fn">print</span>(ans)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">long long</span> ans = <span class="num">1</span>; <span class="cmt"># ใช้ long long เพราะเลขจะโตเร็วมาก</span>
+<span class="kw">int</span> i = <span class="num">1</span>;
+<span class="kw">while</span> (i <= <span class="num">29</span>) {
+    ans = ans * (<span class="num">2</span> * i + <span class="num">1</span>);
+    i = i + <span class="num">1</span>;
+}
+cout << ans;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp2', this)">🔍 ดูข้อควรระวังเรื่อง Overflow</button>
+      </div>
+
+      <div id="exp2" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-yellow);">ทำไมต้องใช้ `long long` ใน C++?</strong>
+          <ul>
+            <li>เพราะการคูณเลขซ้ำๆ หลายรอบ ค่าผลลัพธ์จะพุ่งสูงขึ้นอย่างรวดเร็ว (Exponential growth)
+              เกินขีดจำกัดของตัวแปรประเภท <code>int</code> ปกติ</li>
+            <li>ใน C++ จึงต้องใช้ <code>long long int</code> เพื่อป้องกันปัญหาค่าติดลบหรือค่าเพี้ยนจากการที่ตัวแปรล้น
+              (Integer Overflow)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 3: Euler Pi Formula (แนวข้อสอบข้อ 48)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 3: สูตรคำนวณค่าทางคณิตศาสตร์ (Euler's Formula)</span>
+        <span class="difficulty diff-hard">ระดับ: ข้อสอบจริง สอวน.</span>
+      </div>
+
+      <div class="math-formula-box">
+        จากสูตรออยเลอร์: $\frac{\pi^2}{6} \approx \sum_{k=1}^{n} \frac{1}{k^2}$ ดังนั้น $\pi \approx \sqrt{6 \times
+        \sum}$
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">การผสมผสานลูปบวกสะสมกับการถอดสแควร์รูท (Math Library)</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>n = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Enter n: "</span>))
+s = <span class="num">0</span>
+k = <span class="num">1</span>
+<span class="kw">while</span> k <= n:
+    s = s + <span class="num">1</span> / (k ** <span class="num">2</span>)
+    k = k + <span class="num">1</span>
+pi = (<span class="num">6</span> * s) ** (<span class="num">0.5</span>)
+<span class="fn">print</span>(pi)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">#include &lt;iostream&gt;</span>
+<span class="kw">#include &lt;cmath&gt;</span> <span class="cmt">// เรียกใช้กระเป๋า cmath เพื่อถอดรูท sqrt()</span>
+<span class="kw">using namespace</span> std;
+<span class="kw">int</span> main() {
+    <span class="kw">int</span> n;
+    cin >> n;
+    <span class="kw">double</span> s = <span class="num">0</span>;
+    <span class="kw">int</span> k = <span class="num">1</span>;
+    <span class="kw">while</span> (k <= n) {
+        s = s + <span class="num">1.0</span> / (k * k);
+        k = k + <span class="num">1</span>;
+    }
+    <span class="kw">double</span> pi = sqrt(<span class="num">6</span> * s);
+    cout << pi;
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp3', this)">🔍 ดูเทคนิคการหารเลขทศนิยมใน C++</button>
+      </div>
+
+      <div id="exp3" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-green);">กับดักหารจำนวนเต็ม (Integer Division Trap):</strong>
+          <ul>
+            <li>ใน C++ ถ้าเอาตัวแปรประเภทจำนวนเต็มหารกัน เช่น <code>1 / (k * k)</code>
+              คอมพิวเตอร์จะตัดเศษทศนิยมทิ้งเหลือ 0 ทันที!</li>
+            <li><strong>วิธีแก้:</strong> ต้องเขียนเป็น <code>1.0 / (k * k)</code> หรือใช้ตัวแปรประเภท
+              <code>double</code> เพื่อบังคับให้โปรแกรมคำนวณออกมาเป็นเลขทศนิยมที่ถูกต้องแม่นยำ[cite: 16]
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleExplain(panelId, btn) {
+      const panel = document.getElementById(panelId);
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        btn.textContent = '🔼 ซ่อนคำอธิบาย';
+      } else {
+        btn.textContent = '🔍 ดูคำอธิบายเพิ่มเติม';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

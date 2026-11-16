@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เสาหลักที่ 3: 2D Grid & Simulation - Dek Morton Studio</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg-main: #0f111a;
+      --bg-card: #1a1d2d;
+      --bg-code: #090a10;
+      --accent-purple: #c084fc;
+      --accent-cyan: #38bdf8;
+      --accent-green: #4de7a8;
+      --accent-yellow: #fbbf24;
+      --accent-pink: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #2e344e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Prompt, Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px 60px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(192, 132, 252, 0.15);
+      color: var(--accent-purple);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(192, 132, 252, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      color: var(--accent-purple);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Concept Box */
+    .concept-box {
+      background: linear-gradient(135deg, #181c2e 0%, #221e3b 100%);
+      border: 1px solid var(--accent-purple);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 35px;
+    }
+
+    .concept-box h3 {
+      color: var(--accent-purple);
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    /* Challenge Card */
+    .challenge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .challenge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .challenge-title {
+      font-size: 1.3rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .difficulty {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .diff-easy {
+      background: rgba(77, 231, 168, 0.15);
+      color: var(--accent-green);
+    }
+
+    .diff-med {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--accent-yellow);
+    }
+
+    .diff-hard {
+      background: rgba(244, 63, 94, 0.15);
+      color: var(--accent-pink);
+    }
+
+    /* Code Comparison */
+    .code-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .code-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-box {
+      background: var(--bg-code);
+      border-radius: 10px;
+      border: 1px solid #23273e;
+      overflow: hidden;
+    }
+
+    .code-label {
+      background: #121420;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e2235;
+    }
+
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .kw {
+      color: #38bdf8;
+    }
+
+    .num {
+      color: #fbbf24;
+    }
+
+    .cmt {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .fn {
+      color: #4de7a8;
+    }
+
+    .str {
+      color: #c084fc;
+    }
+
+    /* Action & Explanation */
+    .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .reveal-btn {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .reveal-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    .explain-panel {
+      display: none;
+      margin-top: 18px;
+      background: #121524;
+      border: 1px dashed var(--accent-purple);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .explain-panel.open {
+      display: block;
+    }
+
+    .explain-content {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .explain-content ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .explain-content li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <a href="../index.html" class="back-btn">⬅ กลับหน้าหลัก C++ Hub</a>
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Dek Morton Studio • เสาหลักที่ 3</span>
+    </div>
+
+    <header>
+      <span class="badge">PILLAR 3: 2D GRID & SIMULATION</span>
+      <h1>🗺️ ตารางพิกัดและสถานการณ์จำลอง (Simulation)</h1>
+      <p>พิชิตโจทย์แนวเดินเขาวงกต พิกัดฉาก $x, y$ และการควบคุมเมทริกซ์ 2 มิติใน C++</p>
+    </header>
+
+    <!-- Concept Box -->
+    <div class="concept-box">
+      <h3>💡 เทคนิคพิชิตโจทย์ Simulation สอวน.</h3>
+      <p style="font-size: 0.92rem; color: #cbd5e1; margin-top: 6px;">
+        โจทย์จำลองสถานการณ์และตารางมักจะซ่อนตรรกะการขยับตำแหน่งไว้ หากวาดภาพตามไม่ออกจะงุนงงมาก หลักการสำคัญคือ:
+      </p>
+      <ul style="margin-top: 8px; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1;">
+        <li><strong>ระบบพิกัด $x, y$:</strong> จำให้แม่นว่าขยับขวา $x$ เพิ่ม, ขยับซ้าย $x$ ลด, เดินหน้า/ขึ้นบน $y$ เพิ่ม
+          และถอยหลัง/ลงล่าง $y$ ลด</li>
+        <li><strong>Array 2 มิติ:</strong> แถวแรกคือแนวตั้ง (Row/y) คอลัมน์คือแนวนอน (Col/x)
+          การเขียนลูปซ้อนลูปต้องคุมขอบเขตไม่ให้หลุดตาราง (Out of Bound)</li>
+        <li><strong>ตัวแปรจำลองสถานการณ์:</strong> แยกตัวแปรสถานะ (State) ให้ชัดเจน เช่น ทิศทางหุ่นยนต์, คะแนนสะสม,
+          หรือจำนวนรอบที่เดิน</li>
+      </ul>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 1: พิกัดและการเดินตามทิศทาง (Robot Movement)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 1: หุ่นยนต์เดินตามเข็มทิศพิกัด $(x, y)$</span>
+        <span class="difficulty diff-easy">ระดับ: พื้นฐานตาราง</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">กำหนดให้หุ่นยนต์เริ่มที่ตำแหน่ง $(0, 0)$ อ่านคำสั่งการเดิน N
+        (ขึ้น), S (ลง), E (ขวา), W (ซ้าย) จงหาพิกัดสุดท้ายเมื่อทำงานจบ</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>x, y = <span class="num">0</span>, <span class="num">0</span>
+moves = <span class="str">"NNEEEWS"</span>
+<span class="kw">for</span> cmd <span class="kw">in</span> moves:
+    <span class="kw">if</span> cmd == <span class="str">'N'</span>: y += <span class="num">1</span>
+    <span class="kw">elif</span> cmd == <span class="str">'S'</span>: y -= <span class="num">1</span>
+    <span class="kw">elif</span> cmd == <span class="str">'E'</span>: x += <span class="num">1</span>
+    <span class="kw">elif</span> cmd == <span class="str">'W'</span>: x -= <span class="num">1</span>
+<span class="fn">print</span>(x, y)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> x = <span class="num">0</span>, y = <span class="num">0</span>;
+string moves = <span class="str">"NNEEEWS"</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < moves.length(); i++) {
+    <span class="kw">char</span> cmd = moves[i];
+    <span class="kw">if</span> (cmd == <span class="str">'N'</span>) y++;
+    <span class="kw">else if</span> (cmd == <span class="str">'S'</span>) y--;
+    <span class="kw">else if</span> (cmd == <span class="str">'E'</span>) x++;
+    <span class="kw">else if</span> (cmd == <span class="str">'W'</span>) x--;
+}
+cout << x << <span class="str">" "</span> << y;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp1', this)">🔍 ดูเฉลยและวิธีคิดพิกัดสุดท้าย</button>
+      </div>
+
+      <div id="exp1" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-purple);">คำตอบ: พิกัดสุดท้ายคือ (2, 2)</strong>
+          <ul>
+            <li><strong>วิธีแกะรอย:</strong> เริ่มต้น $(0,0)$ ➔ N(0,1) ➔ N(0,2) ➔ E(1,2) ➔ E(2,2) ➔ E(3,2) ➔ W(2,2) ➔
+              S(2,1)... อ้าว ไล่ตามลำดับตัวอักษร <code>NNEEEWS</code> จะได้พิกัดสุทธิคือ $x = 2, y = 2$ พอดีครับ</li>
+            <li>ในข้อสอบจริง ให้ใช้วิธีทดเลขแยกแกน $X$ (ซ้าย-ขวา) กับแกน $Y$ (ขึ้น-ลง) จะช่วยให้คิดไวขึ้นและไม่สับสน
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 2: การวนลูปสำรวจตาราง 2 มิติ (2D Grid Traversal)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 2: นับจำนวนช่องที่เงื่อนไขเป็นจริงในตาราง</span>
+        <span class="difficulty diff-med">ระดับ: ข้อสอบจริง</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">กำหนดตารางขนาด $3 \times 3$ จงหาว่ามีตัวเลขคู่ในตารางกี่ตัว
+        โดยใช้ลูปซ้อนลูปสำรวจทุกช่อง</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>grid = [
+    [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+    [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+    [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+]
+count = <span class="num">0</span>
+<span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+    <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+        <span class="kw">if</span> grid[r][c] % <span class="num">2</span> == <span class="num">0</span>:
+            count += <span class="num">1</span>
+<span class="fn">print</span>(count)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> grid[<span class="num">3</span>][<span class="num">3</span>] = {
+    {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>},
+    {<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>},
+    {<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>}
+};
+<span class="kw">int</span> count = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r < <span class="num">3</span>; r++) {
+    <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c < <span class="num">3</span>; c++) {
+        <span class="kw">if</span> (grid[r][c] % <span class="num">2</span> == <span class="num">0</span>) {
+            count++;
+        }
+    }
+}
+cout << count;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp2', this)">🔍 ดูหลักการใช้ Nested Loop กับ Grid</button>
+      </div>
+
+      <div id="exp2" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-cyan);">คำตอบ: 4 ตัว (ได้แก่เลข 2, 4, 6, 8)</strong>
+          <ul>
+            <li><strong>ลูปนอก (r - Row):</strong> วิ่งควบคุมแถวแนวตั้งจาก 0 ถึง 2</li>
+            <li><strong>ลูปใน (c - Column):</strong> วิ่งควบคุมคอลัมน์แนวนอนจาก 0 ถึง 2 ในแต่ละแถว</li>
+            <li>นี่คือโครงสร้างพื้นฐานที่ต้องแม่นยำที่สุด เพราะโจทย์เขาวงกตหรือการกระจายตัวของช่องตาราง สอวน.
+              ทุกข้อจะใช้โครงสร้าง Nested Loop แบบนี้เป็นฐานครับ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================
+         ด่านที่ 3: เกมจำลองสถานการณ์ (Simulation Game)
+    ================================================== -->
+    <div class="challenge-card">
+      <div class="challenge-header">
+        <span class="challenge-title">ด่านที่ 3: จำลองสถานการณ์กฎเกณฑ์ (Simulation Rules)</span>
+        <span class="difficulty diff-hard">ระดับ: ตัวตัดคะแนน</span>
+      </div>
+      <p style="margin-bottom: 14px; color: #cbd5e1;">โจทย์จำลองการเดินท่อหรือสะสมแต้มตามเงื่อนไขตารางช่อง
+        โดยหากเจอเลขติดลบจะถูกหักคะแนน และถ้าเจอเลข 0 เกมจะหยุดทันที</p>
+
+      <div class="code-split">
+        <div class="code-box">
+          <div class="code-label"><span>แนวโจทย์ในห้องสอบ (Python)</span><span>READ</span></div>
+          <pre><code>scores = [<span class="num">10</span>, <span class="num">15</span>, -<span class="num">5</span>, <span class="num">20</span>, <span class="num">0</span>, <span class="num">50</span>]
+total = <span class="num">0</span>
+<span class="kw">for</span> s <span class="kw">in</span> scores:
+    <span class="kw">if</span> s == <span class="num">0</span>:
+        <span class="kw">break</span>
+    total += s
+<span class="fn">print</span>(total)</code></pre>
+        </div>
+        <div class="code-box">
+          <div class="code-label"><span>ร่างจริงในสนามแข่ง (C++)</span><span>C++</span></div>
+          <pre><code><span class="kw">int</span> scores[] = {<span class="num">10</span>, <span class="num">15</span>, -<span class="num">5</span>, <span class="num">20</span>, <span class="num">0</span>, <span class="num">50</span>};
+<span class="kw">int</span> total = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < <span class="num">6</span>; i++) {
+    <span class="kw">if</span> (scores[i] == <span class="num">0</span>) {
+        <span class="kw">break</span>; <span class="cmt">// เจอ 0 หยุดลูปทันที</span>
+    }
+    total += scores[i];
+}
+cout << total;</code></pre>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="reveal-btn" onclick="toggleExplain('exp3', this)">🔍 ดูเฉลยและเงื่อนไขการทำงาน</button>
+      </div>
+
+      <div id="exp3" class="explain-panel">
+        <div class="explain-content">
+          <strong style="color: var(--accent-pink);">คำตอบ: 40</strong>
+          <ul>
+            <li><strong>ลำดับการทำงาน:</strong> $10 + 15 = 25$ ➔ $25 + (-5) = 20$ ➔ $20 + 20 = 40$ ➔ พอเจอตัวถัดไปคือ
+              `0` คำสั่ง `break` จะสั่งตัดจบการทำงานทันที ทำให้เลข `50` ด้านหลังสุดไม่ถูกนำมาบวกเพิ่มครับ</li>
+            <li>ข้อสอบ สอวน. ชอบใช้เงื่อนไขพิเศษแบบนี้ (`break`, `continue`)
+              มาทดสอบความรอบคอบในการอ่านโค้ดจำลองสถานการณ์</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleExplain(panelId, btn) {
+      const panel = document.getElementById(panelId);
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        btn.textContent = '🔼 ซ่อนคำอธิบาย';
+      } else {
+        btn.textContent = '🔍 ดูเฉลยและวิธีคิดพิกัดสุดท้าย';
+        if (panelId === 'exp2') btn.textContent = '🔍 ดูหลักการใช้ Nested Loop กับ Grid';
+        if (panelId === 'exp3') btn.textContent = '🔍 ดูเฉลยและเงื่อนไขการทำงาน';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

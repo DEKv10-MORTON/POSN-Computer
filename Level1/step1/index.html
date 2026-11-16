@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dek Morton Studio - สอวน. คอมพิวเตอร์ (Step 1)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div class="brand-text">
+          <h2>สอวน. คอมพิวเตอร์ By : DEK MORTON STUDIO</h2>
+          <p>Step 1 • โครงสร้างกระดูกงูของ C++ (C++ Skeleton & Hello World)</p>
+        </div>
+      </div>
+
+      <div class="header-right-group">
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-info">
+              <span class="stat-label">Score</span>
+              <span class="stat-value" id="score-val">0</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat-item">
+            <span class="stat-icon">🔥</span>
+            <div class="stat-info">
+              <span class="stat-label">Streak</span>
+              <span class="stat-value" id="streak-val">0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-wrapper">
+    <nav class="tabs-nav cpp-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-theory', this)">
+        <i class="fa-solid fa-book-open"></i> 1. ถอดรหัสโครงสร้าง C++
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-drill', this)">
+        <i class="fa-solid fa-terminal"></i> 2. C++ Skeleton Challenge
+      </button>
+    </nav>
+
+    <!-- Tab 1: Theory -->
+    <div id="tab-theory" class="tab-content active">
+      <div class="banner-card cpp-banner">
+        <span class="badge-pill cpp-badge">POSN Computer Science • Step 1</span>
+        <h1>กระดูกงูของ C++ (C++ Skeleton Structure)</h1>
+        <p>ไม่ว่าโค้ดจะซับซ้อนแค่ไหน โปรแกรม C++ ทุกโปรแกรมต้องมี "โครงสร้างบังคับ" นี้เสมอ
+          ถ้าขาดชิ้นส่วนใดชิ้นส่วนหนึ่งไป คอมไพเลอร์จะไม่ทำงาน!</p>
+      </div>
+
+      <div class="code-preview-box">
+        <div class="code-header">
+          <span><i class="fa-solid fa-file-code"></i> main.cpp</span>
+        </div>
+        <pre><code><span class="code-keyword">#include</span> <span class="code-string">&lt;iostream&gt;</span>
+<span class="code-keyword">using namespace</span> <span class="code-type">std</span>;
+
+<span class="code-type">int</span> <span class="code-func">main</span>() {
+    <span class="code-func">cout</span> &lt;&lt; <span class="code-string">"Hello, POSN Computer!"</span> &lt;&lt; endl;
+    <span class="code-keyword">return</span> <span class="code-num">0</span>;
+}</code></pre>
+      </div>
+
+      <div class="theory-grid">
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-boxes-packing text-cpp"></i> 1. #include &lt;iostream&gt;</h3>
+            <span class="tag cpp-tag">Header File</span>
+          </div>
+          <p class="theory-desc">กล่องเครื่องมือรับ-ส่งข้อมูล นำเข้าเพื่อให้เราใช้คำสั่ง <code>cout</code> (พิมพ์ค่า)
+            และ <code>cin</code> (รับค่า) ได้</p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-signature text-cpp"></i> 2. using namespace std;</h3>
+            <span class="tag cpp-tag">Shortcut</span>
+          </div>
+          <p class="theory-desc">ทางลัดบอกคอมพิวเตอร์ว่า ขอใช้คำสั่งมาตรฐานได้เลย โดยไม่ต้องพิมพ์คำว่า
+            <code>std::</code> นำหน้าคำสั่ง <code>cout</code> ทุกครั้ง
+          </p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-play text-cpp"></i> 3. int main() { ... }</h3>
+            <span class="tag cpp-tag">Entry Point</span>
+          </div>
+          <p class="theory-desc">ประตูหน้าบ้านของโปรแกรม คอมพิวเตอร์จะเริ่มอ่านและทำงานตามคำสั่งที่อยู่ภายในปีกกา
+            <code>{ }</code> นี้ตั้งแต่บรรทัดแรกจนถึงบรรทัดสุดท้าย
+          </p>
+        </div>
+
+        <div class="theory-card">
+          <div class="card-header-tag">
+            <h3 class="card-title"><i class="fa-solid fa-flag-checkered text-cpp"></i> 4. return 0; และ Semicolon</h3>
+            <span class="tag cpp-tag">Syntax Rules</span>
+          </div>
+          <p class="theory-desc"><code>return 0;</code> คือการบอกว่าโปรแกรมทำงานเสร็จสมบูรณ์แล้ว
+            และทุกบรรทัดคำสั่งต้องลงท้ายด้วย <code>;</code> (Semicolon) เสมอ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Drill -->
+    <div id="tab-drill" class="tab-content">
+      <div class="quiz-card">
+        <div class="quiz-meta">
+          <span class="topic-indicator cpp-indicator"><i class="fa-solid fa-terminal"></i> Step 1 Challenge</span>
+          <span class="generator-tag cpp-gen-tag"><i class="fa-solid fa-microchip"></i> Code & Syntax Quiz</span>
+        </div>
+
+        <div class="question-box">
+          <h3 class="question-title" id="cpp-q-text">กำลังโหลดโจทย์...</h3>
+          <div class="question-hint" id="cpp-q-hint">คำชี้แนะบริบทจะปรากฏตรงนี้</div>
+        </div>
+
+        <div class="options-grid" id="cpp-options-container"></div>
+
+        <div class="feedback-box hidden" id="cpp-feedback">
+          <div class="feedback-header" id="cpp-fb-title"></div>
+          <div class="feedback-text" id="cpp-fb-desc"></div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action cpp-btn hidden" id="cpp-next-btn" onclick="generateCppQuestion()">
+            ข้อถัดไป <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
